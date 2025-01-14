@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+require('dotenv').config();
 
 (async () => {
   const args = process.argv.slice(2);
@@ -16,12 +17,12 @@ const puppeteer = require('puppeteer');
 
     // Akses halaman login Zabbix
     console.log('Accessing Zabbix login page...');
-    await page.goto("http://10.8.8.65/zabbix", { timeout: 90000 });
+    await page.goto(process.env.ZABBIX_URL, { timeout: 90000 });
 
     // Isi username dan password
     console.log('Logging into Zabbix...');
-    await page.type('input[name="name"]', 'Admin');
-    await page.type('input[name="password"]', 'pr@w4th1y4');
+    await page.type('input[name="name"]', process.env.ZABBIX_USERNAME);
+    await page.type('input[name="password"]', process.env.ZABBIX_PASSWORD);
     await page.click('button[type="submit"]');
     await page.waitForNavigation({ waitUntil: 'networkidle2' });
 

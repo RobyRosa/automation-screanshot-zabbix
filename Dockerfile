@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y nodejs \
     && npm install -g npm@9.4.0 \
     && pip install --no-cache-dir flask requests \
+    && pip install pytz \
+    && pip install python-dotenv \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
