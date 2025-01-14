@@ -1,5 +1,6 @@
 import os
 import subprocess
+import pytz
 from datetime import datetime
 from flask import Flask, request, jsonify
 
@@ -8,6 +9,9 @@ app = Flask(__name__)
 # Path penyimpanan screenshot
 SCREENSHOT_DIR = "./screenshots"
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
+
+# Zona waktu Asia/Jakarta
+ASIA_JAKARTA_TZ = pytz.timezone('Asia/Jakarta')
 
 @app.route('/capture', methods=['POST'])
 def capture_graph():
@@ -18,7 +22,7 @@ def capture_graph():
         if not graph_url:
             return jsonify({"error": "graph_url is required"}), 400
         
-        timestamp = datetime.now().strftime("%Y%m%d_%H")
+        timestamp = datetime.now(ASIA_JAKARTA_TZ).strftime("%Y%m%d_%H")
 
         # Nama file output screenshot
         output_file = os.path.join(SCREENSHOT_DIR, f"sehati_{timestamp}.png")
