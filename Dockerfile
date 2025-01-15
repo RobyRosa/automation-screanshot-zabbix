@@ -40,6 +40,7 @@ COPY app.py .
 
 # Install Node.js dependencies and Puppeteer
 RUN npm install \
+    && npm install dotenv \
     && npm install puppeteer \
     && npx puppeteer browsers install chrome
 

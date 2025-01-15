@@ -9,12 +9,11 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
+ASIA_JAKARTA_TZ = pytz.timezone('Asia/Jakarta')
 # Path penyimpanan screenshot
 SCREENSHOT_DIR = "./screenshots"
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
-# Zona waktu Asia/Jakarta
-ASIA_JAKARTA_TZ = pytz.timezone('Asia/Jakarta')
-# Ambil konfigurasi dari environment variables
+
 WHATSAPP_API_URL = os.getenv('WHATSAPP_API_URL')
 AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 
@@ -23,8 +22,8 @@ def capture_graph():
     try:
         data = request.json
         graph_url = data.get('graph_url')  # Full URL grafik Grafana
-        group_name = data.get('group_name', "Infrastructure")  # Default grup WhatsApp
-        caption = data.get('caption', "TEST SEND Grafik terbaru dari Zabbix")  # Default caption
+        group_name = data.get('group_name', "Infrastructure")
+        caption = data.get('caption', "Test Send Graph CPU DBsehati")
 
         if not graph_url:
             return jsonify({"error": "graph_url is required"}), 400
